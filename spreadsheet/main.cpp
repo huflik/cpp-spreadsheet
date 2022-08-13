@@ -1,6 +1,12 @@
+/*
+   Хорошего времени суток! ಠ‿ಠ
+*/
+
 #include "common.h"
 #include "formula.h"
 #include "test_runner_p.h"
+
+#include <limits>
 
 inline std::ostream& operator<<(std::ostream& output, Position pos) {
     return output << "(" << pos.row << ", " << pos.col << ")";
@@ -24,7 +30,7 @@ inline std::ostream& operator<<(std::ostream& output, const CellInterface::Value
 }
 
 namespace {
-std::string ToString(FormulaError::Category category) {
+[[maybe_unused]]std::string ToString(FormulaError::Category category) {
     return std::string(FormulaError(category).ToString());
 }
 
@@ -250,7 +256,7 @@ void TestErrorDiv0() {
 void TestEmptyCellTreatedAsZero() {
     auto sheet = CreateSheet();
     sheet->SetCell("A1"_pos, "=B2");
-    ASSERT_EQUAL(sheet->GetCell("A1"_pos)->GetValue(), CellInterface::Value(0));
+    ASSERT_EQUAL(sheet->GetCell("A1"_pos)->GetValue(), CellInterface::Value(0.));
 }
 
 void TestFormulaInvalidPosition() {
@@ -370,4 +376,5 @@ int main() {
     RUN_TEST(tr, TestCellReferences);
     RUN_TEST(tr, TestFormulaIncorrect);
     RUN_TEST(tr, TestCellCircularReferences);
+    return 0;
 }
